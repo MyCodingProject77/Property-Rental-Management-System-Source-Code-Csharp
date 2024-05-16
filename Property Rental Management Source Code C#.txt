@@ -1,0 +1,106 @@
+
+
+    using System.Data.SqlClient;
+
+
+
+    Connection 
+
+    SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-HEEKBHE\SQLEXPRESS;Initial Catalog=RentalDB;Integrated Security=True;Trusted_Connection=True;TrustServerCertificate=True");
+
+   
+
+    Save Code
+
+
+    SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-HEEKBHE\SQLEXPRESS;Initial Catalog=RentalDB;Integrated Security=True;Trusted_Connection=True;TrustServerCertificate=True");
+
+
+con.Open();
+
+SqlCommand cnn = new SqlCommand("insert into rental values(@tid,@tenantname,@phone,@rentamount,@due,@datecreated)", con);
+
+cnn.Parameters.AddWithValue("@TID", int.Parse(textBox1.Text));
+cnn.Parameters.AddWithValue("@TenantName", textBox2.Text);
+
+cnn.Parameters.AddWithValue("@Phone", textBox3.Text);
+cnn.Parameters.AddWithValue("@RentAmount", int.Parse(textBox4.Text));
+cnn.Parameters.AddWithValue("@Due", int.Parse(textBox5.Text));
+cnn.Parameters.AddWithValue("@DateCreated", dateTimePicker1.Value);
+
+cnn.ExecuteNonQuery();
+con.Close();
+MessageBox.Show("Saved Successfully");
+
+
+
+
+    Add Code
+
+
+    SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-HEEKBHE\SQLEXPRESS;Initial Catalog=RentalDB;Integrated Security=True;Trusted_Connection=True;TrustServerCertificate=True");
+
+con.Open();
+
+SqlCommand cnn = new SqlCommand("select * from rental", con);
+
+SqlDataAdapter da = new SqlDataAdapter(cnn);
+DataTable table = new DataTable();
+da.Fill(table);
+
+dataGridView1.DataSource = table;
+
+
+
+
+     Delete Code
+
+
+      SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-HEEKBHE\SQLEXPRESS;Initial Catalog=RentalDB;Integrated Security=True;Trusted_Connection=True;TrustServerCertificate=True");
+
+
+ con.Open();
+
+ SqlCommand cnn = new SqlCommand("delete rental where tid=@tid", con);
+
+ cnn.Parameters.AddWithValue("@TID", int.Parse(textBox1.Text));
+ 
+
+ cnn.ExecuteNonQuery();
+ con.Close();
+ MessageBox.Show("Deleted Successfully");
+
+
+
+  Form_Load Code
+
+
+   SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-HEEKBHE\SQLEXPRESS;Initial Catalog=RentalDB;Integrated Security=True;Trusted_Connection=True;TrustServerCertificate=True");
+
+ con.Open();
+
+ SqlCommand cnn = new SqlCommand("select * from rental", con);
+
+ SqlDataAdapter da = new SqlDataAdapter(cnn);
+ DataTable table = new DataTable();
+ da.Fill(table);
+
+ dataGridView1.DataSource = table;
+
+
+
+
+  Calculate Total Expense Code
+
+
+  lblCount.Text = "0";
+for (int i = 0; i < expenseGridView.Rows.Count; i++)
+{
+    lblCount.Text = Convert.ToString(double.Parse(lblCount.Text) + double.Parse(expenseGridView.Rows[i].Cells[3].Value.ToString()));
+}
+
+
+
+
+  
+    
